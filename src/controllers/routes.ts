@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
+import { routes as studentRoutes } from "./student.controller";
 export type requestHandler = (req: Request, res: Response) => void;
-
 export interface IRoute {
   method: string;
-  url: string;
+  path: string;
   handler: requestHandler;
 }
 
@@ -11,8 +11,9 @@ export interface IRoute {
 export const routes: IRoute[] = [
   {
     method: "get",
-    url: "/test",
+    path: "/test",
     handler: (_req, res) =>
       res.status(200).json({ message: "Test successfully" }),
   },
+  ...studentRoutes,
 ];

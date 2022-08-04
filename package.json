@@ -7,8 +7,10 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./dist/server.js",
-    "dev": "nodemon ./dist/server.js",
-    "build": "tsc"
+    "build": "tsc",
+    "server:watch": "nodemon ./dist/server.js",
+    "build:watch": "tsc -w",
+    "dev": "yarn build:watch && yarn server:watch"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
