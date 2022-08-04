@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, Router } from "express";
 import { routes as studentRoutes } from "./student.controller";
 export type requestHandler = (req: Request, res: Response) => void;
 export interface IRoute {
@@ -8,12 +8,24 @@ export interface IRoute {
 }
 
 // Routes
-export const routes: IRoute[] = [
+const routes: IRoute[] = [
   {
     method: "get",
-    path: "/test",
-    handler: (_req, res) =>
-      res.status(200).json({ message: "Test successfully" }),
+    path: "/health",
+    handler: (_req, res) => {
+      res.status(200).json({ message: "Application Running" });
+    },
   },
   ...studentRoutes,
 ];
+
+const router = Router();
+
+// application routes
+
+routes.map((route) => (router as any)[route.method](route.path, route.handler));
+router.use((_req, res: Response) => {
+  res.status(404).json({ message: "Resource Not found" });
+});
+
+export default router;
