@@ -10,11 +10,12 @@
     "build": "tsc",
     "server:watch": "nodemon ./dist/server.js",
     "build:watch": "tsc -w",
-    "dev": "yarn build:watch && yarn server:watch"
+    "dev": "concurrently \"yarn run server:watch\" \"yarn run build:watch\""
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "concurrently": "^7.3.0",
     "nodemon": "^2.0.19",
     "ts-mongoose": "^0.0.24",
     "ts-node": "^10.9.1",
